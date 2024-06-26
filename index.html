@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>DE LA SEMANA SANTA DE SEVILLA 2024</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <!-- PapaParse -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+        <!-- Fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100;300;400;500;600&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+        <!-- Semantic -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.js"></script>
+        <!-- <link rel="stylesheet" type="text/css" href="semantic/dist/components/dropdown.min.css"> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/components/dropdown.min.css" integrity="sha512-tdyzfjYDk2OR9L10jvzzuGUB0Rvl5fyMW/Z8yfbYyyENfuXxtcDtEq7d/PdiA0hzQzXjWwvZasjEp8Joli2tkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <!-- Icon -->
+
+        <!-- D3 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"  crossorigin="anonymous"></script>
+        <script src="https://d3js.org/d3.v4.js"></script>
+
+        <!-- Custom Stylesheet -->
+        <link rel="stylesheet" type="text/css" href="main.css">
+        <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+        
+        <!-- Maplibre -->
+        <script src="https://unpkg.com/maplibre-gl@4.1.2/dist/maplibre-gl.js" crossorigin="anonymous"></script>
+        <link
+          href="https://unpkg.com/maplibre-gl@4.1.2/dist/maplibre-gl.css"
+          rel="stylesheet"
+        />
+        
+        <!-- Mapbox -->
+<!--         <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
+        <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+ -->
+        <!-- Maplibre Search -->
+        <script src="https://unpkg.com/@stadiamaps/maplibre-search-box/dist/maplibre-search-box.umd.js"></script>
+        <link
+          href="https://unpkg.com/@stadiamaps/maplibre-search-box/dist/style.css"
+          rel="stylesheet"
+        />
+
+        <!-- Jawg search -->
+<!--         <script src="https://api.jawg.io/libraries/jawg-places@latest/jawg-places.js?access-token=7a2eSRhtCbdwcC29QQVpudx5QTKDKgcGTS9H6ZZFXnGQICMzOlGsWklmqRvVnIYy"></script>
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@1.15.2/dist/maplibre-gl.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@1.15.2/dist/maplibre-gl.min.js"></script>
+ -->
+        <!-- Protomaps -->
+<!--         <script src="https://unpkg.com/pmtiles@2.10.0/dist/index.js"></script>
+ -->
+
+        <!-- Scripts -->
+
+
+
+    </head>
+    <body>
+
+
+
+<div class="filter-buttons">
+  <h3>Filter Categories</h3>
+  <div id="filter-buttons-container"></div>
+</div>
+
+      <div id="map">
+      </div>
+<div class="map-overlay top">
+
+    <div class="map-overlay-inner">
+        <h2>DE LA SEMANA SANTA DE SEVILLA 2024</h2>
+        <label id="hour-label"></label>
+        <input id="slider" type="range" min="0" max="1439" step="1" value="0">
+    </div>
+
+<button class="ui button">
+  Palm Sunday
+</button>
+
+<button class="ui button">
+  Monday
+</button>
+
+<button class="ui button">
+  Tuesday
+</button>
+
+<button class="ui button">
+  Wednesday
+</button>
+
+<button class="ui button">
+  Thursday
+</button>
+
+<button class="ui button">
+  Friday
+</button>
+
+<button class="ui button">
+  Saturday
+</button>
+
+<button class="ui button">
+  Sunday
+</button>
+
+
+
+</div>
+
+
+
+
+    <script src="js/mapmain.js"></script>
+    </body>
+    <footer>
+
+    </footer>    
+</html>
+
