@@ -223,20 +223,20 @@ function updatePointPositions(currentTime, data) {
       map.getSource(`moving-point-2-${index}`).setData(movingPointData2);
     }
 
-    // Update the connecting line with the new positions of the points
-    if (point1 && point2) {
-      const connectingLineData = {
-        type: 'FeatureCollection',
-        features: [{
-          type: 'Feature',
-          geometry: {
-            type: 'LineString',
-            coordinates: [point1, point2]
-          }
-        }]
-      };
-      map.getSource(`connecting-line-${index}`).setData(connectingLineData);
-    }
+    // // Update the connecting line with the new positions of the points
+    // if (point1 && point2) {
+    //   const connectingLineData = {
+    //     type: 'FeatureCollection',
+    //     features: [{
+    //       type: 'Feature',
+    //       geometry: {
+    //         type: 'LineString',
+    //         coordinates: [point1, point2]
+    //       }
+    //     }]
+    //   };
+    //   map.getSource(`connecting-line-${index}`).setData(connectingLineData);
+    // }
 
     
   });
