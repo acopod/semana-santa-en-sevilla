@@ -12,11 +12,6 @@ const dayColors = [
   '#007cbf' // Default color if none of the above match
 ];
 
-
-// Global variable to store pre-calculated positions (initialize elsewhere)
-const precalculatedPositions = {};
-const TIME_INTERVAL = 5; // Precalculate positions every 5 minutes
-
 // Initialize the map
 const map = new maplibregl.Map({
     container: 'map',
@@ -190,67 +185,57 @@ function interpolatePosition(coords, t) {
 // Function to update point positions based on slider value and active days
 
 function updatePointPositions(currentTime, data) {
-    data.features.forEach((feature, index) => {
-        const begin = timeToMinutes(feature.properties.begin);
-        const end = timeToMinutes(feature.properties.end);
-        const P_begin = timeToMinutes(feature.properties.P_begin);
-        const P_end = timeToMinutes(feature.properties.P_end);
-        const day = feature.properties.icon;
+  data.features.forEach((feature, index) => {
+    const begin = timeToMinutes(feature.properties.begin);
+    const end = timeToMinutes(feature.properties.end);
+    const P_begin = timeToMinutes(feature.properties.P_begin);
+    const P_end = timeToMinutes(feature.properties.P_end);
+    const day = feature.properties.icon;
 
-        const timeVisible = (currentTime >= begin && currentTime <= end) || 
-                            (end < begin && (currentTime >= begin || currentTime <= end));
-        const P_timeVisible = (currentTime >= P_begin && currentTime <= P_end) ||
-                             (P_end < P_begin && (currentTime >= P_begin || currentTime <= P_end));
-        const dayVisible = activeDays[day];
+    const timeVisible = (currentTime >= begin && currentTime <= end) || (end < begin && (currentTime >= begin || currentTime <= end));
+    const P_timeVisible = (currentTime >= P_begin && currentTime <= P_end) || (P_end < P_begin && (currentTime >= P_begin || currentTime <= P_end));
+    const dayVisible = activeDays[day];
 
-        let point1 = null;
-        let point2 = null;
+    let point1 = null;
+    let point2 = null;
 
-        if (timeVisible && dayVisible) {
-            // Calculate the index of the closest pre-calculated point
-            const tIndex = Math.round((currentTime - begin) / TIME_INTERVAL);
-            point1 = precalculatedPositions[index][tIndex];
+    if (timeVisible && dayVisible) {
+      const coords = feature.geometry.coordinates;
+      const t = (currentTime >= begin ? currentTime - begin : currentTime + 1440 - begin) / (end >= begin ? end - begin : end + 1440 - begin);
+      point1 = interpolatePosition(coords, t);
+    }
+
+    if (P_timeVisible && dayVisible) {
+      const coords = feature.geometry.coordinates;
+      const t = (currentTime >= P_begin ? currentTime - P_begin : currentTime + 1440 - P_begin) / (P_end >= P_begin ? P_end - P_begin : P_end + 1440 - P_begin);
+      point2 = interpolatePosition(coords, t);
+    }
+
+    const movingPointData = {
+      type: 'FeatureCollection',
+      features: point1 ? [{
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: point1
         }
+      }] : []
+    };
 
-        if (P_timeVisible && dayVisible) {
-            // Same for the second point
-            const tIndex = Math.round((currentTime - P_begin) / TIME_INTERVAL);
-            point2 = precalculatedPositions[index][tIndex];
+    const movingPointData2 = {
+      type: 'FeatureCollection',
+      features: point2 ? [{
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: point2
         }
+      }] : []
+    };
 
-        // Check if point positions have changed significantly
-        const threshold = 0.0001; // Adjust based on your precision needs
-        const updatePoint1 = !point1 || turf.distance(point1, map.getSource(`moving-point-${index}`)._data.features[0]?.geometry.coordinates || [0, 0]) > threshold;
-        const updatePoint2 = !point2 || turf.distance(point2, map.getSource(`moving-point-2-${index}`)._data.features[0]?.geometry.coordinates || [0, 0]) > threshold;
-    
-        if (updatePoint1) {
-            const movingPointData = {
-                type: 'FeatureCollection',
-                features: point1 ? [{
-                    type: 'Feature',
-                    geometry: {
-                        type: 'Point',
-                        coordinates: point1
-                    }
-                }] : []
-            };
-            map.getSource(`moving-point-${index}`).setData(movingPointData);
-        }
-    
-        if (updatePoint2) {
-            const movingPointData2 = {
-                type: 'FeatureCollection',
-                features: point2 ? [{
-                    type: 'Feature',
-                    geometry: {
-                        type: 'Point',
-                        coordinates: point2
-                    }
-                }] : []
-            };
-            map.getSource(`moving-point-2-${index}`).setData(movingPointData2);
-        }
-    });
+    map.getSource(`moving-point-${index}`).setData(movingPointData);
+    map.getSource(`moving-point-2-${index}`).setData(movingPointData2);
+  });
 }
 
 
