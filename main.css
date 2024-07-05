@@ -44,3 +44,15 @@ body { margin: 0; padding: 0; }
     margin: 0;
     cursor: ew-resize;
 }
+
+/* Default state (untoggled) */
+.ui.button.toggle { 
+    background-color: #e0e1e2; /* Light gray */
+    color: #000; /* Black text */
+}
+
+/* Toggled state */
+.ui.button.toggle.active {
+    background-color: #21ba45; /* Fomantic UI positive green */
+    color: #fff; /* White text */
+}
